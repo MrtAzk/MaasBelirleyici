@@ -1,67 +1,61 @@
 public class Employee {
 
-    public String name;
-    public int salary;
-    public int workhours;
-    public int hireYear;
+    // Bilgi için nitelikleri tanımladık;
+    protected String name;
+    protected double salary;
+    protected int workHours;
+    protected int hireYear;
 
-
-
-    public Employee(String name,int salary,int workhours,int hireYear) {
-
-        this.name=name;
-        this.salary=salary;
-        this.workhours=workhours;
-        this.hireYear=hireYear;
-
+    //Formata uygun bir Constructor metodu oluşturduk;
+    public Employee(String name, double salary, int workHours, int hireYear){
+        this.name = name;
+        this.salary = salary;
+        this.workHours = workHours;
+        this.hireYear = hireYear;
     }
 
-    public double tax(){
-        if (salary<1000){
-            return 0;
-        }else {
-            return salary *0.03;
-        }
-    }
-
-    public int bonus(){
-        if (workhours>40){
-            return (workhours-40)*30;
-        }else {
+    //Gerekli hesaplamalar için methodunu oluşturduk;
+    public double Tax(){
+        if(salary > 1000 ){
+            return salary * 0.03;
+        } else {
             return 0;
         }
     }
 
-    public double raiseSalary(){
-        int year =2021;
+    public double Bonus(){
+        if (workHours > 40){
+            return (workHours - 40) * 30;
+        } else {
+            return 0;
+        }
+    }
 
-        int raiseYear=year-hireYear;
+    public double YearlyBonus(){
+        int thisYear = 2021;
 
-        if (raiseYear<10){
+        if ((thisYear - hireYear) < 10 ){
             return salary * 0.05;
-        } else if (raiseYear >= 10 && raiseYear < 20) {
+        } if ((thisYear - hireYear) > 9 && (thisYear - hireYear) < 20){
             return salary * 0.10;
-            
-        } else if (raiseYear>=20) {
+        } if ((thisYear - hireYear) > 19){
             return salary * 0.15;
         }
         return 0;
     }
 
-    public double totalSalary() {
-        return salary + bonus() + raiseSalary() - tax();
-    }
-
-
-    public String toString() {
+    // Ödevin print tanımına özel method yaptık;
+    public String toString () {
         return "Adı: " + name + "\n" +
-                "Maaşı: " + salary + "\n" +
-                "Çalışma Saati: " + workhours + "\n" +
-                "Başlangıç Yılı: " + hireYear + "\n" +
-                "Vergi: " + tax() + "\n" +
-                "Bonus: " + bonus() + "\n" +
-                "Maaş Artışı: " + raiseSalary() + "\n" +
-                "Vergi ve Bonuslar ile birlikte maaş: " + (salary + bonus() - tax()) + "\n" +
-                "Toplam Maaş: " + totalSalary();
+                "Maaş: " + salary + "\n" +
+                "Çalışma Saati: " + workHours + "\n" +
+                "İşe giriş yılı: " + hireYear + "\n" +
+                "Vergi: " + Tax() + "\n" +
+                "Bonus: " + Bonus() + "\n" +
+                "Maaş artışı: " + YearlyBonus() + "\n" +
+                "Vergi ve bonusla ile birlikte maaş: " + (salary + Bonus() - Tax()) + "\n" +
+                "Toplam maaş: " + (salary + Bonus() + YearlyBonus() - Tax());
+
     }
+
 }
